@@ -227,6 +227,55 @@ var bar = {
 console.log(bar.foo1.name); // Heternally
 ```
 
+构造函数是存在返回值的，可以将函数的返回值分成三种情况：
+
+* 返回一个对象
+* 没有返回值，即默认返回`undefined`
+* 返回基本数据类型
+
+```js
+1、返回一个对象
+function Foo(name,age) {
+  this.name = name;
+  return {
+    age
+  }
+}
+
+var bar = new Foo("Heternally","18");
+
+bar.name; // undefined
+
+bar.age; // 18
+
+2、没有返回值
+
+function Foo(name,age) {
+  this.name = name;
+}
+
+var bar = new Foo("Heternally","18");
+
+bar.name; // Heternally
+
+bar.age; // undefined
+
+3、返回基本数据类型
+
+function Foo(name,age) {
+  this.name = name;
+  return 123
+}
+
+var bar = new Foo("Heternally","18");
+
+bar.name; // Heternally
+
+bar.age; // undefined
+```
+
+所以使用`new`绑定时，需要判断函数返回的值是否为一个对象，如果是对象，那么`this`会绑定到返回的对象上。
+
 ### 5、ES6箭头函数绑定
 
 ES6新增了一种函数类型：箭头函数，箭头函数调用时无法使用上面四种规则了，它和普通函数最不同的一点就是对于箭头函数的`this`指向，是根据它外层（函数/全局）作用域来决定。
